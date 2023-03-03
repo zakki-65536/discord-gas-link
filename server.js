@@ -40,13 +40,13 @@ client.on('message', message =>{
     return;
   }
   if(message.isMemberMentioned(client.user)){
-    console.log(message.content);
     sendReply(message, "呼びましたか？");
     return;
   }
   if (message.content.match(/にゃ～ん|にゃーん/)){
     let text = "にゃ～ん";
-    sendMsg(message.channel.id, text);
+    // sendMsg(message.channel.id, text);
+    sendReply(message, text);
     return;
   }
   
