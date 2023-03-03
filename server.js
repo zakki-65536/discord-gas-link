@@ -1,7 +1,7 @@
 const http = require('http');
 const querystring = require('querystring');
 const discord = require('discord.js');
-const { Client, Intents } = require('discord.js');
+const client = new discord.Client();
 
 http.createServer(function(req, res){
   if (req.method == 'POST'){
@@ -30,28 +30,29 @@ http.createServer(function(req, res){
   }
 }).listen(3000);
 
-client.on('ready', () =>{
+client.on('ready', message =>{
   console.log('Bot準備完了～');
   client.user.setPresence({ activity: { name: 'げーむ' } });
 });
 
-client.on('messageCreate', message =>{
-  if (message.author.bot){
+client.on('message', message =>{
+  if (message.author.id == client.user.id || message.author.bot){
     return;
   }
-  if(message.mentions.users.has(client.user)) {
-    message.reply("呼びましたか？");
+  if(message.isMemberMentioned(client.user)){
+    sendReply(message, "呼びましたか？");
     return;
   }
   if (message.content.match(/にゃ～ん|にゃーん/)){
-    message.channel.send("にゃ〜ん");
+    let text = "にゃ～ん";
+    sendMsg(message.channel.id, text);
     return;
   }
 });
 
-if(!process.env.DISCORD_BOT_TOKEN){
+if(process.env.DISCORD_BOT_TOKEN == undefined){
  console.log('DISCORD_BOT_TOKENが設定されていません。');
- process.exit(1);
+ process.exit(0);
 }
 
 client.login( process.env.DISCORD_BOT_TOKEN );
