@@ -48,9 +48,9 @@ client.on('message', message =>{
     sendMsg(message.channel.id, text);
     return;
   }
+  
+  console.log(message.content);
 });
-
-console.log(message.content);
 
 if(process.env.DISCORD_BOT_TOKEN == undefined){
  console.log('DISCORD_BOT_TOKENが設定されていません。');
