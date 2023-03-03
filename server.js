@@ -40,6 +40,7 @@ client.on('message', message =>{
     return;
   }
   if(message.isMemberMentioned(client.user)){
+    console.log(message.content);
     sendReply(message, "呼びましたか？");
     return;
   }
@@ -49,7 +50,6 @@ client.on('message', message =>{
     return;
   }
   
-  console.log(message.content);
 });
 
 if(process.env.DISCORD_BOT_TOKEN == undefined){
