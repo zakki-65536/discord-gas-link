@@ -3,8 +3,6 @@ const querystring = require('querystring');
 const discord = require('discord.js');
 const { Client, Intents } = require('discord.js');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-
 http.createServer(function(req, res){
   if (req.method == 'POST'){
     var data = "";
@@ -57,3 +55,15 @@ if(!process.env.DISCORD_BOT_TOKEN){
 }
 
 client.login( process.env.DISCORD_BOT_TOKEN );
+
+function sendReply(message, text){
+  message.reply(text)
+    .then(console.log("リプライ送信: " + text))
+    .catch(console.error);
+}
+
+function sendMsg(channelId, text, option={}){
+  client.channels.get(channelId).send(text, option)
+    .then(console.log("メッセージ送信: " + text + JSON.stringify(option)))
+    .catch(console.error);
+}
